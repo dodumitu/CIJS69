@@ -1,7 +1,7 @@
 import {
   getAuth,
   createUserWithEmailAndPassword,
-} from "https://www.gstatic.com/firebasejs/9.5.0/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/9.5.0/firebase-auth.js";
 
 import InputGroup from "./InputGroup.js";
 
@@ -19,7 +19,7 @@ class Register {
     this.$formEl = document.createElement("form");
     this.$formEl.setAttribute(
       "class",
-      "w-1/3 bg-blue-400 py-12 px-4 mx-auto mt-24 rounded-xl"
+      "w-1/3 bg-green-400 py-12 px-4 mx-auto mt-24 rounded-xl"
     );
 
     this.$displayNameEl = new InputGroup(
@@ -32,36 +32,36 @@ class Register {
 
     this.$passwordEl = new InputGroup(
       "password",
-      "Password",
+      " Password",
       "Enter your password"
     );
 
     this.$confirmPasswordEl = new InputGroup(
       "password",
-      "Confirm password",
-      "Enter your password"
+      "Confirm your password",
+      "Re-enter your password"
     );
 
     this.$submitButtonEl = document.createElement("button");
     this.$submitButtonEl.type = "submit";
-    this.$submitButtonEl.addEventListener("click", this.handleSubmit);
     this.$submitButtonEl.textContent = "Submit";
-    this.$submitButtonEl.setAttribute(
-      "class",
-      "bg-white py-2 px-4 rounded-md font-bold"
-    );
+    this.$submitButtonEl.setAttribute("class", "bg-white py-2 px-4 rounded-md");
+    this.$submitButtonEl.addEventListener("click", this.handleSubmit);
   }
-
   handleSubmit = (e) => {
     e.preventDefault();
+
     const validated = this.validation();
+
     if (validated !== null) {
       createUserWithEmailAndPassword(auth, validated.email, validated.password)
         .then((user) => {})
-        .catch((erro) => {
+        .catch((error) => {
           alert(error.message);
         });
     }
+    
+  
   };
   validation() {
     const displayName = this.$displayNameEl.getInputValue();
@@ -111,7 +111,7 @@ class Register {
     }
     return null;
   }
-  
+
   render() {
     this.$formEl.appendChild(this.$displayNameEl.render());
     this.$formEl.appendChild(this.$emailEl.render());
@@ -121,7 +121,6 @@ class Register {
 
     return this.$formEl;
   }
-
 }
 
 export default Register;

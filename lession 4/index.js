@@ -1,5 +1,5 @@
 import Register from "./Register.js";
 
-const registerComponet = new Register();
+const registerComponent = new Register();
 
-document.getElementById("app").appendChild(registerComponet.render());
+document.getElementById("app").appendChild(registerComponent.render());
