@@ -1,37 +1,28 @@
-import ConversationItem from "./ConversationItem.js";
-import CreateNewConversationModal from "./CreateNewConversationModal.js";
+export default class CreateNewConversationModal {
+  $modalContainer;
 
-export default class ConversationList {
-  $conversationItem;
-  $newConversationButton;
-  $createConversationModal;
-
+  _visible = false;
   constructor() {
-    this.$conversationItem = new ConversationItem();
-    this.$createConversationModal = new CreateNewConversationModal();
-
-    this.$newConversationButton = document.createElement("button");
-    this.$newConversationButton.textContent = "New conversation";
-    this.$newConversationButton.setAttribute(
+    this.$modalContainer = document.createElement("div");
+    this.$modalContainer.setAttribute(
       "class",
-      "bg-white py-2 px-4 font-bold rounded-full"
+      "modal fixed w-64 h-64 hidden top-1/2 left-1/2 bg-red-200"
     );
-    this.$newConversationButton.addEventListener("click", () => {
-      this.$createConversationModal.opentModal();
-    });
+
+    this.$modalContainer.textContent = "Modal container";
   }
 
-  render(mainContainer) {
-    const conversationListContainer = document.createElement("div");
-    conversationListContainer.setAttribute(
-      "class",
-      "w-1/4 h-full py-4 px-8 bg-blue-400"
-    );
-    conversationListContainer.appendChild(this.$newConversationButton);
-    conversationListContainer.app;
-    this.$createConversationModal.render(conversationListContainer);
-
-    this.$conversationItem.render(conversationListContainer);
-    mainContainer.appendChild(conversationListContainer);
+  openModal(visible) {
+    this._visible = !this._visible;
+    if (this._visible) {
+      this.$modalContainer.classList.remove("hidden");
+      this.$modalContainer.classList.add("block");
+    } else {
+      this.$modalContainer.classList.remove("block");
+      this.$modalContainer.classList.add("hidden");
+    }
+  }
+  render(conversationListContainer) {
+    conversationListContainer.appendChild(this.$modalContainer);
   }
 }
