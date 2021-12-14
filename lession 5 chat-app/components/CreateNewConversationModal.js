@@ -44,7 +44,7 @@ export default class CreateNewConversationModal {
     this.$modalContainer.classList.add("hidden");
   };
 
-  opentModal() {
+  openModal() {
     this.$modalContainer.classList.toggle("hidden");
   }
 
@@ -57,5 +57,3 @@ export default class CreateNewConversationModal {
   }
 }
 
-// Collection => table (mysql)
-// Document => record (row ) mysql

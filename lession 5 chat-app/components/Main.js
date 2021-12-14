@@ -1,32 +1,35 @@
-import Content from "./content.js";
+import Title from "./Title.js";
 import ConversationList from "./ConversationList.js";
 class Main {
-  $mainContainer;
   $conversationList;
-  $content;
+$title
   constructor() {
-    this.$mainContainer = document.createElement("div");
-    this.$mainContainer.setAttribute(
-      "class",
-      "flex w-screen h-screen bg-gray-400"
-    );
-    this.$conversationList = new ConversationList(this.changeActive);
-
-    this.$content = new Content();
-    this.$content.setValue("Chat-App");
+    this.$conversationList = new ConversationList((conversation) => {
+      this.setActiveConversation(conversation);
+    });
+    this.$title = new Title("No data", 0);
   }
 
-  changeActive = (data) => {
-    this.$content.setValue("");
-    this.$content.setValue(data);
+  setActiveConversation = (conversation) => {
+    this.$title.setActiveConversation(conversation);
+    console.log(
+      "log conversation from setActiveConversation function",
+      conversation
+    );
   };
 
   render(container) {
-    this.$conversationList.render(this.$mainContainer);
+    const mainContainer = document.createElement("div");
+    mainContainer.setAttribute("class", "flex w-screen h-screen bg-gray-400");
 
-    this.$content.render(this.$mainContainer);
+    const content = document.createElement("div");
+    content.setAttribute("class", "w-full h-full px-24 bg-white");
+    this.$title.render(content);
 
-    container.appendChild(this.$mainContainer);
+    this.$conversationList.render(mainContainer);
+    mainContainer.appendChild(content);
+
+    container.appendChild(mainContainer);
   }
 }
 
